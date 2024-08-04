@@ -23,13 +23,13 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "hePsiThermo.H" 
+#include "canteraPsiThermo.H"
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
-template<class BasicPsiThermo, class MixtureType>
-void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate()
-{
+template<class BasicPsiThermo, class MixtureType> 
+void Foam::canteraPsiThermo<BasicPsiThermo, MixtureType>::calculate()
+{	
 	const scalarField& hCells = this->he_;
     const scalarField& pCells = this->p_;
 
@@ -49,10 +49,20 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate()
             pCells[celli],
             TCells[celli]
         );
-        psiCells[celli] = mixture_.psi(pCells[celli], TCells[celli]);
 
+        psiCells[celli] = mixture_.psi(pCells[celli], TCells[celli]);
+/*
         muCells[celli] = mixture_.mu(pCells[celli], TCells[celli]);
         alphaCells[celli] = mixture_.alphah(pCells[celli], TCells[celli]);
+*/
+        muCells[celli] = this->muCellMixture(pCells[celli], TCells[celli], celli);		
+        alphaCells[celli] = this->alphahCellMixture
+		(
+		    pCells[celli], 
+			TCells[celli], 
+			celli
+		);	
+		
     }
 
     volScalarField::Boundary& pBf =
@@ -86,28 +96,62 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate()
         {
             forAll(pT, facei)
             {
-				const typename MixtureType::thermoType& mixture_ =
+                const typename MixtureType::thermoType& mixture_ =
                     this->patchFaceMixture(patchi, facei);
 
                 phe[facei] = mixture_.HE(pp[facei], pT[facei]);
 
                 ppsi[facei] = mixture_.psi(pp[facei], pT[facei]);
+/*				
                 pmu[facei] = mixture_.mu(pp[facei], pT[facei]);
                 palpha[facei] = mixture_.alphah(pp[facei], pT[facei]);
+*/				
+				
+                pmu[facei] = this->muPatchFaceMixture
+				(
+				    pp[facei], 
+					pT[facei], 
+					patchi, 
+					facei
+				);
+                palpha[facei] = this->alphahPatchFaceMixture
+				(
+				    pp[facei], 
+					pT[facei], 
+					patchi, 
+					facei
+				);				
             }
         }
         else
         {
             forAll(pT, facei)
             {
-				const typename MixtureType::thermoType& mixture_ =
+                const typename MixtureType::thermoType& mixture_ =
                     this->patchFaceMixture(patchi, facei);
 
                 pT[facei] = mixture_.THE(phe[facei], pp[facei], pT[facei]);
 
                 ppsi[facei] = mixture_.psi(pp[facei], pT[facei]);
+/*				
                 pmu[facei] = mixture_.mu(pp[facei], pT[facei]);
                 palpha[facei] = mixture_.alphah(pp[facei], pT[facei]);
+*/				
+				
+                pmu[facei] = this->muPatchFaceMixture
+				(
+				    pp[facei], 
+					pT[facei], 
+					patchi, 
+					facei
+				);
+                palpha[facei] = this->alphahPatchFaceMixture
+				(
+				    pp[facei], 
+					pT[facei], 
+					patchi, 
+					facei
+				);				
             }
         }
     }
@@ -117,7 +161,7 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate()
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class BasicPsiThermo, class MixtureType>
-Foam::hePsiThermo<BasicPsiThermo, MixtureType>::hePsiThermo
+Foam::canteraPsiThermo<BasicPsiThermo, MixtureType>::canteraPsiThermo
 (
     const fvMesh& mesh,
     const word& phaseName
@@ -135,14 +179,14 @@ Foam::hePsiThermo<BasicPsiThermo, MixtureType>::hePsiThermo
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
 template<class BasicPsiThermo, class MixtureType>
-Foam::hePsiThermo<BasicPsiThermo, MixtureType>::~hePsiThermo()
+Foam::canteraPsiThermo<BasicPsiThermo, MixtureType>::~canteraPsiThermo()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class BasicPsiThermo, class MixtureType>
-void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::correct()
+void Foam::canteraPsiThermo<BasicPsiThermo, MixtureType>::correct()
 {
     if (debug)
     {
