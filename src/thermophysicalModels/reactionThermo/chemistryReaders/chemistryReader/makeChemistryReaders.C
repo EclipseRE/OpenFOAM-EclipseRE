@@ -28,7 +28,8 @@ License
 #include "solidThermoPhysicsTypes.H"
 
 #include "chemistryReader.H"
-#include "foamChemistryReader.H"
+#include "foamChemistryReader.H" 
+//#include "canteraChemistryReader.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -61,6 +62,20 @@ makeChemistryReaderType(foamChemistryReader, constFluidHThermoPhysics);
 makeChemistryReaderType(foamChemistryReader, constAdiabaticFluidHThermoPhysics);
 makeChemistryReaderType(foamChemistryReader, constHThermoPhysics);
 
+/*
+makeChemistryReaderType(canteraChemistryReader, constGasHThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, gasHThermoPhysics);
+makeChemistryReaderType
+(
+    canteraChemistryReader,
+    constIncompressibleGasHThermoPhysics
+);
+makeChemistryReaderType(canteraChemistryReader, incompressibleGasHThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, icoPoly8HThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, constFluidHThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, constAdiabaticFluidHThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, constHThermoPhysics);
+*/
 
 // Solid chemistry readers based on sensibleInternalEnergy
 
@@ -86,6 +101,20 @@ makeChemistryReaderType(foamChemistryReader, constFluidEThermoPhysics);
 makeChemistryReaderType(foamChemistryReader, constAdiabaticFluidEThermoPhysics);
 makeChemistryReaderType(foamChemistryReader, constEThermoPhysics);
 
+/*
+makeChemistryReaderType(canteraChemistryReader, constGasEThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, gasEThermoPhysics);
+makeChemistryReaderType
+(
+    canteraChemistryReader,
+    constIncompressibleGasEThermoPhysics
+);
+makeChemistryReaderType(canteraChemistryReader, incompressibleGasEThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, icoPoly8EThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, constFluidEThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, constAdiabaticFluidEThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, constEThermoPhysics);
+*/
 
 // Solid chemistry readers for solids based on sensibleInternalEnergy
 
@@ -97,6 +126,11 @@ makeChemistryReaderType(foamChemistryReader, hConstSolidThermoPhysics);
 makeChemistryReaderType(foamChemistryReader, hPowerSolidThermoPhysics);
 makeChemistryReaderType(foamChemistryReader, hExpKappaConstSolidThermoPhysics);
 
+/*
+makeChemistryReaderType(canteraChemistryReader, hConstSolidThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, hPowerSolidThermoPhysics);
+makeChemistryReaderType(canteraChemistryReader, hExpKappaConstSolidThermoPhysics);
+*/
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 } // End namespace Foam

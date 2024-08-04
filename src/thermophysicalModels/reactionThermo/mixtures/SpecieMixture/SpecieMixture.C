@@ -172,7 +172,7 @@ Foam::scalar Foam::SpecieMixture<MixtureType>::mu
     const scalar T
 ) const
 {
-    return this->getLocalThermo(speciei).mu(p, T);
+	return this->getLocalThermo(speciei).mu(p, T);
 }
 
 
