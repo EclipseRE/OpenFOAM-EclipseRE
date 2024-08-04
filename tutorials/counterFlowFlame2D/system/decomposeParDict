@@ -10,32 +10,20 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "constant";
-    object      chemistryProperties;
+    note        "mesh decomposition control dictionary";
+    object      decomposeParDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-chemistryType
+numberOfSubdomains  4;
+
+method          hierarchical;
+
+hierarchicalCoeffs
 {
-    solver            ode;
+    n           (2 2 1);
+    delta       0.001;
+    order       xyz;
 }
-
-chemistry       on;
-
-initialChemicalTimeStep 1e-07;
-
-EulerImplicitCoeffs
-{
-    cTauChem        0.05;
-    equilibriumRateLimiter off;
-}
-
-odeCoeffs
-{
-    solver          CVODES;
-    absTol          1e-8;
-    relTol          1e-1;
-}
-
 
 // ************************************************************************* //

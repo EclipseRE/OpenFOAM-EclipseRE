@@ -9,33 +9,39 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "constant";
-    object      chemistryProperties;
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-chemistryType
-{
-    solver            ode;
-}
-
-chemistry       on;
-
-initialChemicalTimeStep 1e-07;
-
-EulerImplicitCoeffs
-{
-    cTauChem        0.05;
-    equilibriumRateLimiter off;
-}
-
-odeCoeffs
-{
-    solver          CVODES;
-    absTol          1e-8;
-    relTol          1e-1;
-}
-
+4
+(
+    fuel
+    {
+        type            patch;
+        nFaces          41;
+        startFace       8059;
+    }
+    air
+    {
+        type            patch;
+        nFaces          41;
+        startFace       8100;
+    }
+    outlet
+    {
+        type            patch;
+        nFaces          200;
+        startFace       8141;
+    }
+    frontAndBack
+    {
+        type            empty;
+        inGroups        1(empty);
+        nFaces          8200;
+        startFace       8341;
+    }
+)
 
 // ************************************************************************* //
