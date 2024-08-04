@@ -10,32 +10,44 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "constant";
-    object      chemistryProperties;
+    location    "system";
+    object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-chemistryType
-{
-    solver            ode;
-}
+application     reactingFoam;
 
-chemistry       on;
+startFrom       latestTime;
 
-initialChemicalTimeStep 1e-07;
+startTime       0;
 
-EulerImplicitCoeffs
-{
-    cTauChem        0.05;
-    equilibriumRateLimiter off;
-}
+stopAt          endTime;
 
-odeCoeffs
-{
-    solver          CVODES;
-    absTol          1e-8;
-    relTol          1e-1;
-}
+endTime         0.3;
+
+deltaT          1e-6;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.05;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off; 
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+adjustTimeStep  yes;
+
+maxCo           0.1;
 
 
 // ************************************************************************* //

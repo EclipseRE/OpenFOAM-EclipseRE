@@ -7,34 +7,28 @@
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
-    version     2.0;
-    format      ascii;
-    class       dictionary;
-    location    "constant";
-    object      chemistryProperties;
+    version         2;
+    format          ascii;
+    class           dictionary;
+    location        "constant";
+    object          chemistryProperties;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 chemistryType
 {
-    solver            ode;
+    solver          ode;
+//	method          cantera;
 }
 
 chemistry       on;
 
 initialChemicalTimeStep 1e-07;
 
-EulerImplicitCoeffs
-{
-    cTauChem        0.05;
-    equilibriumRateLimiter off;
-}
-
 odeCoeffs
 {
     solver          CVODES;
-    absTol          1e-8;
-    relTol          1e-1;
+    absTol          1e-10;
+    relTol          1e-3;
 }
 
 

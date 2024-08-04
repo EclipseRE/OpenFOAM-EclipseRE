@@ -9,32 +9,39 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "constant";
-    object      chemistryProperties;
+    class       volScalarField;
+    location    "0";
+    object      Ydefault;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-chemistryType
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   uniform 0.0;
+
+boundaryField
 {
-    solver            ode;
-}
+    fuel
+    {
+        type            fixedValue;
+        value           uniform 0.0;
+    }
+    air
+    {
+        type            fixedValue;
+        value           uniform 0.0;
+    }
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform 0.0;
+        value           uniform 0.0;
 
-chemistry       on;
-
-initialChemicalTimeStep 1e-07;
-
-EulerImplicitCoeffs
-{
-    cTauChem        0.05;
-    equilibriumRateLimiter off;
-}
-
-odeCoeffs
-{
-    solver          CVODES;
-    absTol          1e-8;
-    relTol          1e-1;
+    }
+    frontAndBack
+    {
+        type            empty;
+    }
 }
 
 

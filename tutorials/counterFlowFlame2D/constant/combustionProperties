@@ -11,30 +11,16 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      chemistryProperties;
+    object      combustionProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-chemistryType
+combustionModel  laminar;
+
+active  true;
+
+laminarCoeffs
 {
-    solver            ode;
-}
-
-chemistry       on;
-
-initialChemicalTimeStep 1e-07;
-
-EulerImplicitCoeffs
-{
-    cTauChem        0.05;
-    equilibriumRateLimiter off;
-}
-
-odeCoeffs
-{
-    solver          CVODES;
-    absTol          1e-8;
-    relTol          1e-1;
 }
 
 

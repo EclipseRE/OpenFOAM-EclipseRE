@@ -11,26 +11,31 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      chemistryProperties;
+    object      thermophysicalProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-chemistryType
+thermoType
 {
-    chemistrySolver   ode;
-    chemistryThermo   pyrolysis;
+    type            canteraPsiThermo;
+    mixture         reactingMixture;
+    transport       sutherland;
+    thermo          janaf;
+    energy          sensibleEnthalpy;
+    equationOfState perfectGas;
+    specie          specie;
 }
 
-chemistry           on;
+inertSpecie N2;
 
-initialChemicalTimeStep 1e-07;
-
-odeCoeffs
-{
-    solver          CVODES;
-    absTol          1e-8;
-    relTol          0.01;
-}
+//chemistryReader foamChemistryReader;
+//foamChemistryFile "$FOAM_CASE/constant/reactionsGRI";
+//foamChemistryThermoFile "$FOAM_CASE/constant/thermo.compressibleGasGRI";
+chemistryReader canteraChemistryReader;
+canteraChemistryFile "gri30.cti";
+canteraFileID "gri30";
+canteraTransportFile "$FOAM_CASE/constant/transportProperties";
+transportModel "mixtureAveraged";
 
 
 // ************************************************************************* //
