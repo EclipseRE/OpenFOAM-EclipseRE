@@ -41,7 +41,7 @@
     Info << "min/max(T) = "
          << min(T).value() << ", " << max(T).value() << endl;
     // update oldT for CoDAC
-    oldT = tempT;
+    //oldT = tempT;
 }
 
 

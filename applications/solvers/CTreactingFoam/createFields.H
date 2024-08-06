@@ -10,17 +10,17 @@ basicSpecieMixture& composition = thermo.composition();
 PtrList<volScalarField>& Y = composition.Y();
 
 // initilize omega, diff, omegaT and diffT for use in CEMA
-PtrList<volScalarField>& omega = composition.omega();
-PtrList<volScalarField>& diff = composition.diff();
-volScalarField& omegaT = composition.omegaT();
-volScalarField& diffT = composition.diffT();
+//PtrList<volScalarField>& omega = composition.omega();
+//PtrList<volScalarField>& diff = composition.diff();
+//volScalarField& omegaT = composition.omegaT();
+//volScalarField& diffT = composition.diffT();
 
 // initilize oldY for CoDAC, it will be large numbers to aviod similarity initially
-PtrList<volScalarField>& oldY = composition.oldY(); 
-forAll(Y, i)
-{
-    oldY[i] = 1000.0;
-}
+//PtrList<volScalarField>& oldY = composition.oldY(); 
+//forAll(Y, i)
+//{
+//    oldY[i] = 1000.0;
+//}
 const word inertSpecie(thermo.lookup("inertSpecie"));
 if (!composition.species().found(inertSpecie))
 {
