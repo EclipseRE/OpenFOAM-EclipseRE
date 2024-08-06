@@ -62,31 +62,31 @@ class reactingMixture
     public PtrList<Reaction<ThermoType>>
 {
     // Private member data
-	
-		//- cantera object
-		mutable Cantera::IdealGasMix gas_;
-		Cantera::Transport* tran_;
-	    Cantera::MixTransport* tranMix_;
-		Cantera::MultiTransport* tranMulti_;		
+    
+        //- cantera object
+        mutable Cantera::IdealGasMix gas_;
+        Cantera::Transport* tran_;
+        Cantera::MixTransport* tranMix_;
+        Cantera::MultiTransport* tranMulti_;        
 
-		//- number of species
-		int nsp_;
-		
-		//- if mixtureAveraged transport model used
-		bool mixtureAveraged_ = false;
+        //- number of species
+        int nsp_;
+        
+        //- if mixtureAveraged transport model used
+        bool mixtureAveraged_ = false;
 
-		//- if multiComponent transport model used		
-		bool multiComponent_ = false;
-		
-		//- if mixtureAveraged transport model used
-		bool constantLewis_ = false;
+        //- if multiComponent transport model used        
+        bool multiComponent_ = false;
+        
+        //- if mixtureAveraged transport model used
+        bool constantLewis_ = false;
 
-		//- if multiComponent transport model used		
-		bool unityLewis_ = false;		
-		
+        //- if multiComponent transport model used        
+        bool unityLewis_ = false;        
+        
         //- Table of species composition
         speciesCompositionTable speciesComposition_;
-		
+        
 
 
     // Private Member Functions
@@ -146,70 +146,71 @@ public:
         {
             return speciesComposition_;
         }
-		
-		//- species mass diffusivity
-		inline PtrList<volScalarField> D
+        
+        //- species mass diffusivity
+        inline PtrList<volScalarField> D
         (
-        	const volScalarField& p, 
-        	const volScalarField& T, 
-        	const PtrList<volScalarField>& Y
+            const volScalarField& p, 
+            const volScalarField& T, 
+            const PtrList<volScalarField>& Y,
+            const volScalarField& rho        
         ) const;
-		
-		inline PtrList<volScalarField> Dmass
+        
+        inline PtrList<volScalarField> Dmass
         (
-        	const volScalarField& p, 
-        	const volScalarField& T, 
-        	const PtrList<volScalarField>& Y
-        ) const;		
-		
-		//- species thermal diffusivity
-		inline PtrList<volScalarField> DT
+            const volScalarField& p, 
+            const volScalarField& T, 
+            const PtrList<volScalarField>& Y
+        ) const;        
+        
+        //- species thermal diffusivity
+        inline PtrList<volScalarField> DT
         (
-        	const volScalarField& p, 
-        	const volScalarField& T, 
-        	const PtrList<volScalarField>& Y
+            const volScalarField& p, 
+            const volScalarField& T, 
+            const PtrList<volScalarField>& Y
         ) const;
-		
+        
         inline PtrList<volVectorField> Dm
         (
-        	const volScalarField& p, 
-        	const volScalarField& T, 
-        	const PtrList<volScalarField>& Y,
-        	const volScalarField& rho	
+            const volScalarField& p, 
+            const volScalarField& T, 
+            const PtrList<volScalarField>& Y,
+            const volScalarField& rho    
         ) const;
-		
-/*		//- mixture viscosity
-		inline scalar mixVisc
-		(
-		    const scalar p,
-			const scalar T,
-			const scalarField& Y
-		) const;
+        
+/*        //- mixture viscosity
+        inline scalar mixVisc
+        (
+            const scalar p,
+            const scalar T,
+            const scalarField& Y
+        ) const;
 
-		//- mixture thermal conductivity
-		inline scalar mixThermalCond
-		(
-		    const scalar p,
-			const scalar T,
-			const scalarField& Y
-		) const;
+        //- mixture thermal conductivity
+        inline scalar mixThermalCond
+        (
+            const scalar p,
+            const scalar T,
+            const scalarField& Y
+        ) const;
 */
 
-		//- binary diffusivity coefficients
-		inline PtrList<volScalarField> bD
+        //- binary diffusivity coefficients
+        inline PtrList<volScalarField> bD
         (
-        	const volScalarField& p, 
-        	const volScalarField& T, 
-        	const PtrList<volScalarField>& Y
-        ) const;	
+            const volScalarField& p, 
+            const volScalarField& T, 
+            const PtrList<volScalarField>& Y
+        ) const;    
 
-		//- species fluxes
-		inline PtrList<volVectorField> speFlux
-		(
-		    const volScalarField& p,
-			const volScalarField& T,
-			const PtrList<volScalarField>& c
-		) const;			
+        //- species fluxes
+        inline PtrList<volVectorField> speFlux
+        (
+            const volScalarField& p,
+            const volScalarField& T,
+            const PtrList<volScalarField>& c
+        ) const;            
 };
 
 

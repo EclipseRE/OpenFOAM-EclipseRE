@@ -34,4 +34,6 @@ EXE_LIBS = \
     -lreactionThermophysicalModels \
     -lcompressibleTurbulenceModels \
     -lfvOptions \
-    -lcombustionModels
+    -lcombustionModels \
+    -L$(CANTERA_LIB_PATH) \
+    -lcantera_shared

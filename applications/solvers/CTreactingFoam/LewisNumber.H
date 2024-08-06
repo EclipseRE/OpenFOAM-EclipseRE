@@ -1,4 +1,4 @@
-OFstream LewisNumber
+/*OFstream LewisNumber
 (
     "LewisNumber.dat"
 );
@@ -23,4 +23,4 @@ forAll(mesh.cells(), celli)
 
 		}
 	}
-}
+}*/
