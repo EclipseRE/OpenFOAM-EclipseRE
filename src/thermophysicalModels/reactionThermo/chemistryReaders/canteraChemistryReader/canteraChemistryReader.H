@@ -62,12 +62,12 @@ class canteraChemistryReader
     public chemistryReader<gasHThermoPhysics>
 {
         string ctiFileString;
-		
-		    string ctiFileID;
-		
-	      Cantera::IdealGasMix gas_;
-		
-		//- List of elements
+        
+            string ctiFileID;
+        
+          Cantera::IdealGasMix gas_;
+        
+        //- List of elements
         DynamicList<word> elementNames_;
 
         //- Element indices
@@ -84,39 +84,39 @@ class canteraChemistryReader
 
         //- List of the reactions
         ReactionList<gasHThermoPhysics> reactions_;
-	
+    
     // Private Member Functions
-	
+    
         //- Set the species list
         speciesTable& setSpecies
-		(
-		    Cantera::IdealGasMix gas, 
-			speciesTable& species
-		);
-		
-		// Set species thermo data
-		void setSpeciesThermo
-		(
-		    Cantera::IdealGasMix gas, 
-			const dictionary& transportDict
-		);
-		
-		// Set species thermo data
-		void setSpeciesComposition(Cantera::IdealGasMix gas);
+        (
+            Cantera::IdealGasMix gas, 
+            speciesTable& species
+        );
+        
+        // Set species thermo data
+        void setSpeciesThermo
+        (
+            Cantera::IdealGasMix gas, 
+            const dictionary& transportDict
+        );
+        
+        // Set species thermo data
+        void setSpeciesComposition(Cantera::IdealGasMix gas);
 
-		// Set reaction data
-		void setReactions(Cantera::IdealGasMix gas);
+        // Set reaction data
+        void setReactions(Cantera::IdealGasMix gas);
     
         //initialize cantera
-	    void canteraRead(Cantera::IdealGasMix gas);
-		
+        void canteraRead(Cantera::IdealGasMix gas);
+        
         enum reactionType
         {
             irreversible,
             reversible,
             unknownReactionType
         };
-		
+        
         enum reactionRateType
         {
             Arrhenius,
@@ -128,29 +128,29 @@ class canteraChemistryReader
             powerSeries,
             unknownReactionRateType
         };
-		
+        
         template<class ReactionRateType>
-		void addReactionType
-		(
-		    const reactionType rType,
+        void addReactionType
+        (
+            const reactionType rType,
             DynamicList<gasHReaction::specieCoeffs>& lhs,
             DynamicList<gasHReaction::specieCoeffs>& rhs,
             const ReactionRateType& rr
-		);
+        );
 
         template<template<class, class> class PressureDependencyType>
-		void addPressureReactionType
+        void addPressureReactionType
         (
-			const reactionType rType,
-			DynamicList<gasHReaction::specieCoeffs>& lhs,
-			DynamicList<gasHReaction::specieCoeffs>& rhs,
-			const scalarList& efficiencies,
-			const scalarList& k0Coeffs,
-			const scalarList& kInfCoeffs,
-			const scalarList& fallOffCoeffs,
-			int fofType
-        );		
-		
+            const reactionType rType,
+            DynamicList<gasHReaction::specieCoeffs>& lhs,
+            DynamicList<gasHReaction::specieCoeffs>& rhs,
+            const scalarList& efficiencies,
+            const scalarList& k0Coeffs,
+            const scalarList& kInfCoeffs,
+            const scalarList& fallOffCoeffs,
+            int fofType
+        );        
+        
 public:
 
     //- Runtime type information
@@ -161,19 +161,19 @@ public:
     canteraChemistryReader
     (
         const dictionary& thermoDict,
-		speciesTable& species
+        speciesTable& species
     );
 
     //- Destructor
     virtual ~canteraChemistryReader()
     {}
-	
-	// member functions
-		    Cantera::IdealGasMix& canteraGas()
-		    {
-			    return gas_;
-		    }
-	
+    
+    // member functions
+            Cantera::IdealGasMix& canteraGas()
+            {
+                return gas_;
+            }
+    
         //- List of elements from cantera
         const wordList& elementNames() const
         {
@@ -185,14 +185,14 @@ public:
         {
             return elementIndices_;
         }
-		
-	    // Return the species table from cantera
+        
+        // Return the species table from cantera
         const speciesTable& species() const
         {
             return speciesTable_;
         } 
-		
-		//- Table of species composition from cantera
+        
+        //- Table of species composition from cantera
         const speciesCompositionTable& specieComposition() const
         {
             return speciesComposition_;

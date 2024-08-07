@@ -44,7 +44,7 @@ forAll(Y, i)
             )
         )
     );
-	
+    
     tempY.set
     (
         i,        
@@ -65,18 +65,18 @@ forAll(Y, i)
 
     YV.set
     (
-	i,
-	new volVectorField
-	(
-	    IOobject
-	    (
-		"YV",
-		mesh.time().timeName(),
-		mesh
-	    ),
-	    mesh,
-	    dimensionedVector("YV", dimVelocity, vector(0.0, 0.0, 0.0))
-	)
+    i,
+    new volVectorField
+    (
+        IOobject
+        (
+        "YV",
+        mesh.time().timeName(),
+        mesh
+        ),
+        mesh,
+        dimensionedVector("YV", dimVelocity, vector(0.0, 0.0, 0.0))
+    )
     );
 
 
@@ -84,25 +84,25 @@ forAll(Y, i)
 
 forAll (Y, i)
 {
-	volScalarField& tHsi = hsi[i];	
-	forAll(tHsi, celli)
-	{
+    volScalarField& tHsi = hsi[i];    
+    forAll(tHsi, celli)
+    {
             tHsi[celli] = composition.Hs(i, p[celli], T[celli]);
-	}
-	volScalarField::Boundary& Bf = tHsi.boundaryFieldRef();	
-	forAll(Bf, patchi)
-	{
-		forAll(Bf[patchi], facei)	
-		{
-			Bf[patchi][facei] = 
-			composition.Hs
-			(
-			    i,
-				p.boundaryField()[patchi][facei],
-				T.boundaryField()[patchi][facei]
-			);
-		}
-	}
+    }
+    volScalarField::Boundary& Bf = tHsi.boundaryFieldRef();    
+    forAll(Bf, patchi)
+    {
+        forAll(Bf[patchi], facei)    
+        {
+            Bf[patchi][facei] = 
+            composition.Hs
+            (
+                i,
+                p.boundaryField()[patchi][facei],
+                T.boundaryField()[patchi][facei]
+            );
+        }
+    }
 }
 
 // add turbulence effect on D, assuming constant turbulence Lewis number
@@ -145,8 +145,8 @@ forAll(Y, i)
             (
                 fvm::ddt(rho, Yi)
               + mvConvection->fvmDiv(phi, Yi)
-	     == fvm::laplacian(rho*D[i], Yi) + fvc::laplacian(rho*D[i]*Yi/Wmix, Wmix)
-		- fvm::div(phiVc, Yi, "div(phiVc,Yi_h)") + 
+         == fvm::laplacian(rho*D[i], Yi) + fvc::laplacian(rho*D[i]*Yi/Wmix, Wmix)
+        - fvm::div(phiVc, Yi, "div(phiVc,Yi_h)") + 
                 reaction->R(Yi)
               + fvOptions(rho, Yi)
             );
@@ -172,14 +172,14 @@ forAll(Y, i)
 
     forAll(YV, i)
     {
-	// Calculate diff velocity for each species (including inertSpecies) for use in EEqn.H
+    // Calculate diff velocity for each species (including inertSpecies) for use in EEqn.H
 
-	YV[i] = (-D[i]*fvc::grad(Y[i])) - (D[i]*Y[i]/Wmix)*fvc::grad(Wmix);
+    YV[i] = (-D[i]*fvc::grad(Y[i])) - (D[i]*Y[i]/Wmix)*fvc::grad(Wmix);
     
-    	if (i != inertIndex && composition.active(i))
-    	{
-	    YV_balance += YV[i]; 
-    	}
+        if (i != inertIndex && composition.active(i))
+        {
+        YV_balance += YV[i]; 
+        }
     }
     
     YV[inertIndex] = -YV_balance; // since sum(Y[i]*V[i]) over all species = 0 for global mass conservation
@@ -187,13 +187,13 @@ forAll(Y, i)
     forAll(Y, i)
     {
 
-	// Species Diffusion Flux term used in EEqn.H
+    // Species Diffusion Flux term used in EEqn.H
 
         J.set
         (
-            i, 		
+            i,         
             linearInterpolate(YV[i]*rho) & mesh.Sf() 
-        );	
+        );    
     }
 
 }

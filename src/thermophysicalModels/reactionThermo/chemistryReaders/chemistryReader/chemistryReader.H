@@ -110,14 +110,14 @@ public:
     virtual ~chemistryReader()
     {}
 
-		
+        
 
-		
+        
     // Member Functions
 
-	    virtual Cantera::IdealGasMix& canteraGas() = 0;
-		
-	   //- Return access to the list of species
+        virtual Cantera::IdealGasMix& canteraGas() = 0;
+        
+       //- Return access to the list of species
         virtual const speciesTable& species() const = 0;
 
         //- Table of species composition
@@ -128,7 +128,7 @@ public:
 
         //- Return access to the list of reactions
         virtual const ReactionList<ThermoType>& reactions() const = 0;
-		
+        
 };
 
 

@@ -275,7 +275,7 @@ namespace Foam
         constHThermoPhysics
     );
 
-	
+    
     // cantera chemistry model
     makeChemistryModelType
     (
@@ -388,7 +388,7 @@ namespace Foam
         canteraChemistryModel,
         rhoReactionThermo,
         constHThermoPhysics
-    );	
+    );    
 
 
     // Chemistry moldels based on sensibleInternalEnergy
@@ -620,8 +620,8 @@ namespace Foam
         constEThermoPhysics
     );
 
-	
-	// cantera chemistry model
+    
+    // cantera chemistry model
     makeChemistryModelType
     (
         canteraChemistryModel,

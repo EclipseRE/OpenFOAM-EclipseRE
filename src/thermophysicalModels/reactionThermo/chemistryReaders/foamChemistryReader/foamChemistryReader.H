@@ -59,8 +59,8 @@ class foamChemistryReader
     public chemistryReader<ThermoType>
 {
         Cantera::IdealGasMix gas_;
-		
-		//- Chemistry/reactions dictionary
+        
+        //- Chemistry/reactions dictionary
         dictionary chemDict_;
 
         //- Thermo properties dictionary
@@ -132,11 +132,11 @@ public:
 
     // Member functions
 
-		Cantera::IdealGasMix& canteraGas()
-		{
-			return gas_;
-		}
-		
+        Cantera::IdealGasMix& canteraGas()
+        {
+            return gas_;
+        }
+        
         //- List of elements
         const wordList& elementNames() const
         {

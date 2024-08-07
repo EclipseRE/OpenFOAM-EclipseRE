@@ -43,14 +43,14 @@ Foam::CVODES::CVODES(const ODESystem& ode, const dictionary& dict)
 :
     ODESolver(ode, dict),
     integ_(Cantera::newIntegrator("CVODE")),
-	y_(n_)
+    y_(n_)
 {
     // use backward differencing, with a full Jacobian computed
     // numerically, and use a Newton linear iterator
     integ_->setMethod(Cantera::BDF_Method);
     integ_->setProblemType(Cantera::DENSE + Cantera::NOJAC);
     integ_->setIterator(Cantera::Newton_Iter);
-	
+    
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -60,7 +60,7 @@ bool Foam::CVODES::resize()
     if (ODESolver::resize())
     {
         resizeField(y_);
-		init_ = false;
+        init_ = false;
 
         return true;
     }
@@ -80,17 +80,17 @@ void Foam::CVODES::solve
 ) const
 {
     y_ = y;
-	
-	extFunc ext_(n_, y_, odes_);
-	time_ = xStart;
+    
+    extFunc ext_(n_, y_, odes_);
+    time_ = xStart;
 
-	if (!init_)
-	{		
-		doublereal CvodeAbsTol[n_];
-	    for(label i=0; i<n_; i++)
-	    {
-	    	CvodeAbsTol[i] = absTol_[i];
-	    }
+    if (!init_)
+    {        
+        doublereal CvodeAbsTol[n_];
+        for(label i=0; i<n_; i++)
+        {
+            CvodeAbsTol[i] = absTol_[i];
+        }
 
         integ_->setTolerances(relTol_[0], n_, CvodeAbsTol);
         integ_->setSensitivityTolerances(senRelTol_, senAbsTol_);
@@ -99,22 +99,22 @@ void Foam::CVODES::solve
         integ_->initialize(time_, ext_);
         integrator_init_ = true;
         init_ = true;
-	}
-	else if (!integrator_init_)
-	{
+    }
+    else if (!integrator_init_)
+    {
         integ_->reinitialize(time_, ext_);
-	    integrator_init_ = true;
-	}
-	
-	integ_->integrate(xEnd);
-	time_ = xEnd;
-	forAll (y_, i)
-	{
-		y[i] = integ_->solution()[i];
-	}
-	
-    integrator_init_ = false;	
-	dxEst = 1; //make it big
+        integrator_init_ = true;
+    }
+    
+    integ_->integrate(xEnd);
+    time_ = xEnd;
+    forAll (y_, i)
+    {
+        y[i] = integ_->solution()[i];
+    }
+    
+    integrator_init_ = false;    
+    dxEst = 1; //make it big
 }
 
 

@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
             << nl << endl;
     }
-	
+    
     #include "LewisNumber.H" 
 
     Info<< "End\n" << endl;

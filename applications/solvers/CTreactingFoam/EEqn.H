@@ -21,12 +21,12 @@
         Qdot
       + fvOptions(rho, he)
     );
-	
-	forAll(Y, k)
-	{
-		EEqn -= fvc::laplacian(turbulence->alphaEff()*hsi[k], Y[k]);
-		EEqn -= fvc::div(J[k], hsi[k], "div(Ji,hsi)");
-	}
+    
+    forAll(Y, k)
+    {
+        EEqn -= fvc::laplacian(turbulence->alphaEff()*hsi[k], Y[k]);
+        EEqn -= fvc::div(J[k], hsi[k], "div(Ji,hsi)");
+    }
 
     EEqn.relax();
 
