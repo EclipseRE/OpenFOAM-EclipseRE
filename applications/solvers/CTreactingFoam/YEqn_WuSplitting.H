@@ -21,79 +21,79 @@ PtrList<volScalarField> tempY(Y.size()), YSave(Y.size());
 forAll(Y, i)
 {
     hsi.set
-	(
+    (
         i,        
         new volScalarField
         (
             IOobject
             (
-        	    "hsi",
+                "hsi",
                 mesh.time().timeName(),
-        	    mesh
+                mesh
             ),
             mesh,
             dimensionedScalar
             (
                 "hsi", 
-        	    dimEnergy/dimMass, 
+                dimEnergy/dimMass, 
                 Zero
             )
         )
-	);
-	
+    );
+    
     tempY.set
-	(
+    (
         i,        
         new volScalarField
         (
             IOobject
             (
-        	    "tempY",
+                "tempY",
                 mesh.time().timeName(),
-        	    mesh
+                mesh
             ),
             mesh,
             scalar(0.0)
         )
-	);
+    );
     
     YSave.set(i, Y[i]);
     
     D.set
-	(
+    (
         i, 
         mag(Dm[i])/(dimensionedScalar("SMALL", dimensionSet(0,-1,0,0,0), Foam::SMALL)
-		+mag(fvc::grad(Y[i]).ref()))		
-	);
+        +mag(fvc::grad(Y[i]).ref()))        
+    );
 
     J.set
-	(
-        i, 		
+    (
+        i,         
         linearInterpolate(Dm[i]*rho) & mesh.Sf()
-	);	
+    );    
 }
 
 forAll (Y, i)
 {
-	volScalarField& tHsi = hsi[i];	
-	forAll(tHsi, celli)
-	{
-		tHsi[celli] = composition.Hs(i, p[celli], T[celli]);
-	}
-	volScalarField::Boundary& Bf = tHsi.boundaryFieldRef();	
-	forAll(Bf, patchi)
-	{
-		forAll(Bf[patchi], facei)	
-		{
-			Bf[patchi][facei] = 
-			composition.Hs
-			(
-			    i,
-				p.boundaryField()[patchi][facei],
-				T.boundaryField()[patchi][facei]
-			);
-		}
-	}
+    volScalarField& tHsi = hsi[i];    
+    forAll(tHsi, celli)
+    {
+        tHsi[celli] = composition.Hs(i, p[celli], T[celli]);
+    }
+    volScalarField::Boundary& Bf = tHsi.boundaryFieldRef();    
+    forAll(Bf, patchi)
+    {
+        forAll(Bf[patchi], facei)    
+        {
+            Bf[patchi][facei] = 
+            composition.Hs
+            (
+                i,
+                p.boundaryField()[patchi][facei],
+                T.boundaryField()[patchi][facei]
+            );
+        }
+    }
 }
 
 
@@ -235,10 +235,10 @@ forAll (Y, i)
             (
                 fvm::ddt(rho, Yi)
                 + mvConvection->fvmDiv(phi, Yi)
-			    - fvm::laplacian(rho*D[i], Yi)
+                - fvm::laplacian(rho*D[i], Yi)
              ==
                 mvConvection->fvcDiv(phi, YSave[i])
-			    - fvc::laplacian(rho*D[i], YSave[i])
+                - fvc::laplacian(rho*D[i], YSave[i])
               + fvOptions(rho, Yi)
             );
 

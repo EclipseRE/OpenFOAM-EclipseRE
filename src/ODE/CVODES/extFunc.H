@@ -48,12 +48,12 @@ namespace Foam
 
 class extFunc
 :
-	public Cantera::FuncEval
+    public Cantera::FuncEval
 {
     // Private data
 
         label n_;
-        scalarField& y_;		
+        scalarField& y_;        
         const ODESystem& odes_;
 public:
 
@@ -68,19 +68,19 @@ public:
     {}
 
 
-    // Member Functions	
-	    virtual size_t neq()
-		{
-			return n_;
-		}	
+    // Member Functions    
+        virtual size_t neq()
+        {
+            return n_;
+        }    
         virtual void getState(double* y);
-		virtual void eval
-		(
+        virtual void eval
+        (
             doublereal t, 
-	        doublereal* y,
+            doublereal* y,
             doublereal* ydot, 
-	        doublereal* p
-        );	
+            doublereal* p
+        );    
 
 };
 

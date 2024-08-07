@@ -23,6 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
+#include "canteraChemistryReader.H"
 #include "makeReactionThermo.H"
 #include "thermoPhysicsTypes.H"
 #include "solidThermoPhysicsTypes.H"
@@ -63,18 +64,20 @@ makeChemistryReaderType(foamChemistryReader, constAdiabaticFluidHThermoPhysics);
 makeChemistryReaderType(foamChemistryReader, constHThermoPhysics);
 
 /*
-makeChemistryReaderType(canteraChemistryReader, constGasHThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, gasHThermoPhysics);
-makeChemistryReaderType
+defineTypeNameAndDebug(canteraChemistryReader, 0);
+addChemistryReaderType(canteraChemistryReader, constGasHThermoPhysics);
+// added in other file, canteraChemistryReader.C
+//addChemistryReaderType(canteraChemistryReader, gasHThermoPhysics);
+addChemistryReaderType
 (
     canteraChemistryReader,
     constIncompressibleGasHThermoPhysics
 );
-makeChemistryReaderType(canteraChemistryReader, incompressibleGasHThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, icoPoly8HThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, constFluidHThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, constAdiabaticFluidHThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, constHThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, incompressibleGasHThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, icoPoly8HThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, constFluidHThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, constAdiabaticFluidHThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, constHThermoPhysics);
 */
 
 // Solid chemistry readers based on sensibleInternalEnergy
@@ -102,18 +105,18 @@ makeChemistryReaderType(foamChemistryReader, constAdiabaticFluidEThermoPhysics);
 makeChemistryReaderType(foamChemistryReader, constEThermoPhysics);
 
 /*
-makeChemistryReaderType(canteraChemistryReader, constGasEThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, gasEThermoPhysics);
-makeChemistryReaderType
+addChemistryReaderType(canteraChemistryReader, constGasEThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, gasEThermoPhysics);
+addChemistryReaderType
 (
     canteraChemistryReader,
     constIncompressibleGasEThermoPhysics
 );
-makeChemistryReaderType(canteraChemistryReader, incompressibleGasEThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, icoPoly8EThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, constFluidEThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, constAdiabaticFluidEThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, constEThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, incompressibleGasEThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, icoPoly8EThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, constFluidEThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, constAdiabaticFluidEThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, constEThermoPhysics);
 */
 
 // Solid chemistry readers for solids based on sensibleInternalEnergy
@@ -127,9 +130,9 @@ makeChemistryReaderType(foamChemistryReader, hPowerSolidThermoPhysics);
 makeChemistryReaderType(foamChemistryReader, hExpKappaConstSolidThermoPhysics);
 
 /*
-makeChemistryReaderType(canteraChemistryReader, hConstSolidThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, hPowerSolidThermoPhysics);
-makeChemistryReaderType(canteraChemistryReader, hExpKappaConstSolidThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, hConstSolidThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, hPowerSolidThermoPhysics);
+addChemistryReaderType(canteraChemistryReader, hExpKappaConstSolidThermoPhysics);
 */
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

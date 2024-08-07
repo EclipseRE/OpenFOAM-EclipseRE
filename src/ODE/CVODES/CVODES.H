@@ -58,22 +58,22 @@ class CVODES
     // Private data
 
         // pointer to access cantera Integrators
-		std::unique_ptr<Cantera::Integrator> integ_;
-		// current solution
-		mutable scalarField y_;		
-		// Sensitivity Tolerances
-		scalar senRelTol_ = 1.0e-4;
-		scalar senAbsTol_ = 1.0e-6;
-		int maxErrTestFails_ = 0;
-		
-		// current time
-		mutable scalar time_ = 0.0;
-				
-		// if already initialized, true
-		mutable bool init_ = false;
-		
-		// if already reinitialized, true
-		mutable bool integrator_init_ = false;
+        std::unique_ptr<Cantera::Integrator> integ_;
+        // current solution
+        mutable scalarField y_;        
+        // Sensitivity Tolerances
+        scalar senRelTol_ = 1.0e-4;
+        scalar senAbsTol_ = 1.0e-6;
+        int maxErrTestFails_ = 0;
+        
+        // current time
+        mutable scalar time_ = 0.0;
+                
+        // if already initialized, true
+        mutable bool init_ = false;
+        
+        // if already reinitialized, true
+        mutable bool integrator_init_ = false;
 
 public:
 
@@ -92,8 +92,8 @@ public:
     {}
 
 
-    // Member Functions	
-		
+    // Member Functions    
+        
         //- Resize the ODE solver
         virtual bool resize();
 
@@ -105,9 +105,9 @@ public:
             const scalar xEnd,
             scalarField& y,
             scalar& dxEst
-        ) const;		
-		
-		
+        ) const;        
+        
+        
 
 };
 

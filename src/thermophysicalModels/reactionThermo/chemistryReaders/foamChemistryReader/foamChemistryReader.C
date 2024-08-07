@@ -151,7 +151,7 @@ Foam::foamChemistryReader<ThermoType>::foamChemistryReader
     reactions_(speciesTable_, speciesThermo_, chemDict_)
 {
 
-	readSpeciesComposition();
+    readSpeciesComposition();
 
 }
 
@@ -182,7 +182,7 @@ Foam::foamChemistryReader<ThermoType>::foamChemistryReader
     speciesThermo_(thermoDict_),
     reactions_(speciesTable_, speciesThermo_, chemDict_)
 {
- 	
+     
     readSpeciesComposition();
 
 }

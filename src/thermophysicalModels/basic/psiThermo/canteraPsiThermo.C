@@ -29,8 +29,8 @@ License
 
 template<class BasicPsiThermo, class MixtureType> 
 void Foam::canteraPsiThermo<BasicPsiThermo, MixtureType>::calculate()
-{	
-	const scalarField& hCells = this->he_;
+{    
+    const scalarField& hCells = this->he_;
     const scalarField& pCells = this->p_;
 
     scalarField& TCells = this->T_.primitiveFieldRef();
@@ -55,14 +55,14 @@ void Foam::canteraPsiThermo<BasicPsiThermo, MixtureType>::calculate()
         muCells[celli] = mixture_.mu(pCells[celli], TCells[celli]);
         alphaCells[celli] = mixture_.alphah(pCells[celli], TCells[celli]);
 */
-        muCells[celli] = this->muCellMixture(pCells[celli], TCells[celli], celli);		
+        muCells[celli] = this->muCellMixture(pCells[celli], TCells[celli], celli);        
         alphaCells[celli] = this->alphahCellMixture
-		(
-		    pCells[celli], 
-			TCells[celli], 
-			celli
-		);	
-		
+        (
+            pCells[celli], 
+            TCells[celli], 
+            celli
+        );    
+        
     }
 
     volScalarField::Boundary& pBf =
@@ -102,25 +102,25 @@ void Foam::canteraPsiThermo<BasicPsiThermo, MixtureType>::calculate()
                 phe[facei] = mixture_.HE(pp[facei], pT[facei]);
 
                 ppsi[facei] = mixture_.psi(pp[facei], pT[facei]);
-/*				
+/*                
                 pmu[facei] = mixture_.mu(pp[facei], pT[facei]);
                 palpha[facei] = mixture_.alphah(pp[facei], pT[facei]);
-*/				
-				
+*/                
+                
                 pmu[facei] = this->muPatchFaceMixture
-				(
-				    pp[facei], 
-					pT[facei], 
-					patchi, 
-					facei
-				);
+                (
+                    pp[facei], 
+                    pT[facei], 
+                    patchi, 
+                    facei
+                );
                 palpha[facei] = this->alphahPatchFaceMixture
-				(
-				    pp[facei], 
-					pT[facei], 
-					patchi, 
-					facei
-				);				
+                (
+                    pp[facei], 
+                    pT[facei], 
+                    patchi, 
+                    facei
+                );                
             }
         }
         else
@@ -133,25 +133,25 @@ void Foam::canteraPsiThermo<BasicPsiThermo, MixtureType>::calculate()
                 pT[facei] = mixture_.THE(phe[facei], pp[facei], pT[facei]);
 
                 ppsi[facei] = mixture_.psi(pp[facei], pT[facei]);
-/*				
+/*                
                 pmu[facei] = mixture_.mu(pp[facei], pT[facei]);
                 palpha[facei] = mixture_.alphah(pp[facei], pT[facei]);
-*/				
-				
+*/                
+                
                 pmu[facei] = this->muPatchFaceMixture
-				(
-				    pp[facei], 
-					pT[facei], 
-					patchi, 
-					facei
-				);
+                (
+                    pp[facei], 
+                    pT[facei], 
+                    patchi, 
+                    facei
+                );
                 palpha[facei] = this->alphahPatchFaceMixture
-				(
-				    pp[facei], 
-					pT[facei], 
-					patchi, 
-					facei
-				);				
+                (
+                    pp[facei], 
+                    pT[facei], 
+                    patchi, 
+                    facei
+                );                
             }
         }
     }

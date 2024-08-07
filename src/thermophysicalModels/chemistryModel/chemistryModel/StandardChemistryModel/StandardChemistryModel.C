@@ -114,7 +114,7 @@ void Foam::StandardChemistryModel<ReactionThermo, ThermoType>::omega
     
     forAll(reactions_, i)
     {
-		const Reaction<ThermoType>& R = reactions_[i];
+        const Reaction<ThermoType>& R = reactions_[i];
 
         R.omega(p, T, c, dcdt);
     }
@@ -186,7 +186,7 @@ void Foam::StandardChemistryModel<ReactionThermo, ThermoType>::derivatives
     dT /= rho*cp;
 
     dcdt[nSpecie_] = -dT;
-	
+    
     // dp/dt = ...
     dcdt[nSpecie_ + 1] = 0;
 }
@@ -539,7 +539,7 @@ Foam::scalar Foam::StandardChemistryModel<ReactionThermo, ThermoType>::solve
             // Calculate the chemical source terms
             while (timeLeft > small)
             {
-				scalar dt = timeLeft;
+                scalar dt = timeLeft;
                 this->solve(c_, Ti, pi, dt, this->deltaTChem_[celli]);
                 timeLeft -= dt;
             }

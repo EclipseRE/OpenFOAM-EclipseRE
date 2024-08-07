@@ -31,9 +31,9 @@ License
 Foam::extFunc::extFunc(label n, scalarField& y, const ODESystem& ode)
 :
     FuncEval(),
-	n_(n),
-	y_(y),
-	odes_(ode)
+    n_(n),
+    y_(y),
+    odes_(ode)
 {}
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -41,36 +41,36 @@ Foam::extFunc::extFunc(label n, scalarField& y, const ODESystem& ode)
 void Foam::extFunc::eval
 (
     doublereal t, 
-	doublereal* y,
+    doublereal* y,
     doublereal* ydot, 
-	doublereal* p
+    doublereal* p
 )
 {
     scalarField y0(n_);
-	scalarField dy(n_);
-	forAll(y0, i)
-	{
-		y0[i] = y[i];
-	}
-	
-	odes_.derivatives(t, y0, dy);
-	
-	forAll(dy, i)
-	{
-		ydot[i] = dy[i];
-	}
+    scalarField dy(n_);
+    forAll(y0, i)
+    {
+        y0[i] = y[i];
+    }
+    
+    odes_.derivatives(t, y0, dy);
+    
+    forAll(dy, i)
+    {
+        ydot[i] = dy[i];
+    }
 }
 
 
 void Foam::extFunc::getState
 (
-	doublereal* y
+    doublereal* y
 )
 {
-	forAll(y_, i)
-	{		
-		y[i] = y_[i];
-	}
+    forAll(y_, i)
+    {        
+        y[i] = y_[i];
+    }
 }
 
 // ************************************************************************* //

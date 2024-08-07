@@ -81,11 +81,11 @@ Foam::multiComponentMixture<ThermoType>::multiComponentMixture
     const HashPtrTable<ThermoType>& thermoData,
     const fvMesh& mesh,
     const word& phaseName,
-	Cantera::IdealGasMix& gas 
+    Cantera::IdealGasMix& gas 
 )
 :
     basicSpecieMixture(thermoDict, specieNames, mesh, phaseName),
-	gas_(gas),
+    gas_(gas),
     speciesData_(species_.size()),
     mixture_("mixture", *thermoData[specieNames[0]]),
     mixtureVol_("volMixture", *thermoData[specieNames[0]]),
@@ -99,58 +99,58 @@ Foam::multiComponentMixture<ThermoType>::multiComponentMixture
             new ThermoType(*thermoData[species_[i]])
         );
     }
-	
-	if (thermoDict.found("transportModel"))
-	{ 
-		const word transportModel(thermoDict.lookup("transportModel"));
+    
+    if (thermoDict.found("transportModel"))
+    { 
+        const word transportModel(thermoDict.lookup("transportModel"));
         int log = 0;
-	    if (transportModel == "mixtureAveraged") 
-	    {
-	    	MmixtureAveraged_ = true;
-			tran_ = Cantera::newTransportMgr("Mix", &gas_, log=0);
-	    }
-	    if (transportModel == "multiComponent") 
-	    {
-	    	MmultiComponent_ = true;
-			tran_ = Cantera::newTransportMgr("Multi", &gas_, log=0);
-	    }
-		if (transportModel == "constantLewis")
-		{
-			MconstantLewis_ = true;
-			// the tran_ pointer is still needed for alpha and Cp from Cantera
-			tran_ = Cantera::newTransportMgr("Mix", &gas_, log=0);
-			// read constant Lewis number of each species 
+        if (transportModel == "mixtureAveraged") 
+        {
+            MmixtureAveraged_ = true;
+            tran_ = Cantera::newTransportMgr("Mix", &gas_, log=0);
+        }
+        if (transportModel == "multiComponent") 
+        {
+            MmultiComponent_ = true;
+            tran_ = Cantera::newTransportMgr("Multi", &gas_, log=0);
+        }
+        if (transportModel == "constantLewis")
+        {
+            MconstantLewis_ = true;
+            // the tran_ pointer is still needed for alpha and Cp from Cantera
+            tran_ = Cantera::newTransportMgr("Mix", &gas_, log=0);
+            // read constant Lewis number of each species 
 
-			dictionary LewisNumberDict_ = thermoDict.subDict("LewisNumber");
-			forAll (species_, i)
-			{	
-			    LewisNumber_[i] = readScalar(LewisNumberDict_.lookup(specieNames[i]));
+            dictionary LewisNumberDict_ = thermoDict.subDict("LewisNumber");
+            forAll (species_, i)
+            {    
+                LewisNumber_[i] = readScalar(LewisNumberDict_.lookup(specieNames[i]));
                 if (!LewisNumberDict_.found(specieNames[i])) 
-				{
-					FatalErrorInFunction
+                {
+                    FatalErrorInFunction
                     << "Lewis number of  " << specieNames[i] 
-					<< " not found in input" << abort(FatalError);
-				}				
-			}
-			
-		}
-		if (transportModel == "unityLewis")
-		{
-			MunityLewis_ = true;
-			tran_ = Cantera::newTransportMgr("Mix", &gas_, log=0);
-			forAll (species_, i)
-			{				
-				LewisNumber_[i] = 1;
-			}
-		}
-	    
-	    tranMix_ = dynamic_cast<Cantera::MixTransport*>(tran_);
+                    << " not found in input" << abort(FatalError);
+                }                
+            }
+            
+        }
+        if (transportModel == "unityLewis")
+        {
+            MunityLewis_ = true;
+            tran_ = Cantera::newTransportMgr("Mix", &gas_, log=0);
+            forAll (species_, i)
+            {                
+                LewisNumber_[i] = 1;
+            }
+        }
+        
+        tranMix_ = dynamic_cast<Cantera::MixTransport*>(tran_);
         tranMulti_ = dynamic_cast<Cantera::MultiTransport*>(tran_);
-	}
+    }
 
-	Info << "Dezhi in multiComponentMixture: " << gas.nSpecies() << endl;	
+    Info << "Dezhi in multiComponentMixture: " << gas.nSpecies() << endl;    
 //    Info << "Use cantera transport ? " << useCantera << endl;
-//    Info << "hehe" << speciesData_[0].W() << endl;	
+//    Info << "hehe" << speciesData_[0].W() << endl;    
     correctMassFractions();
 }
 
@@ -174,7 +174,7 @@ Foam::multiComponentMixture<ThermoType>::multiComponentMixture
     mixture_("mixture", constructSpeciesData(thermoDict)),
     mixtureVol_("volMixture", speciesData_[0])
 {
-	correctMassFractions();
+    correctMassFractions();
 }
 
 
@@ -290,27 +290,27 @@ template<class ThermoType>
 Foam::scalar Foam::multiComponentMixture<ThermoType>::muCellMixture
 (
     const scalar p,
-	const scalar T,
-	const label celli
+    const scalar T,
+    const label celli
 )
 {
-	scalar muMixture(0.0);
+    scalar muMixture(0.0);
     doublereal Y[species_.size()];
-	forAll(species_, i)
-	{
-		Y[i] = Y_[i][celli];
-	}	
-	gas_.setState_TPY(T, p, Y);
+    forAll(species_, i)
+    {
+        Y[i] = Y_[i][celli];
+    }    
+    gas_.setState_TPY(T, p, Y);
 
     if (MmixtureAveraged_)
-	{
-		muMixture = tranMix_->viscosity();
-	}
+    {
+        muMixture = tranMix_->viscosity();
+    }
     if (MmultiComponent_)
-	{
-		muMixture = tranMulti_->viscosity();
-	}		
-	
+    {
+        muMixture = tranMulti_->viscosity();
+    }        
+    
     return muMixture;
 }
 
@@ -318,27 +318,27 @@ template<class ThermoType>
 Foam::scalar Foam::multiComponentMixture<ThermoType>::alphahCellMixture
 (
     const scalar p,
-	const scalar T,
-	const label celli
+    const scalar T,
+    const label celli
 )
 {
-	scalar alphahMixture(0.0);
+    scalar alphahMixture(0.0);
     doublereal Y[species_.size()];
-	forAll(species_, i)
-	{
-		Y[i] = Y_[i][celli];
-	}	
-	gas_.setState_TPY(T, p, Y);
+    forAll(species_, i)
+    {
+        Y[i] = Y_[i][celli];
+    }    
+    gas_.setState_TPY(T, p, Y);
 
     if (MmixtureAveraged_)
-	{
-		alphahMixture = tranMix_->thermalConductivity()/gas_.cp_mass();
-	}
+    {
+        alphahMixture = tranMix_->thermalConductivity()/gas_.cp_mass();
+    }
     if (MmultiComponent_)
-	{
-		alphahMixture = tranMulti_->thermalConductivity()/gas_.cp_mass();
-	}		
-	
+    {
+        alphahMixture = tranMulti_->thermalConductivity()/gas_.cp_mass();
+    }        
+    
     return alphahMixture;
 }
 
@@ -346,28 +346,28 @@ template<class ThermoType>
 Foam::scalar Foam::multiComponentMixture<ThermoType>::muPatchFaceMixture
 (
     const scalar p,
-	const scalar T,    
-	const label patchi,
+    const scalar T,    
+    const label patchi,
     const label facei
 )
 {
-	scalar muMixture(0.0);
+    scalar muMixture(0.0);
     doublereal Y[species_.size()];
-	forAll(species_, i)
-	{
-		Y[i] = Y_[i].boundaryField()[patchi][facei];
-	}	
-	gas_.setState_TPY(T, p, Y);
+    forAll(species_, i)
+    {
+        Y[i] = Y_[i].boundaryField()[patchi][facei];
+    }    
+    gas_.setState_TPY(T, p, Y);
 
     if (MmixtureAveraged_)
-	{
-		muMixture = tranMix_->viscosity();
-	}
+    {
+        muMixture = tranMix_->viscosity();
+    }
     if (MmultiComponent_)
-	{
-		muMixture = tranMulti_->viscosity();
-	}		
-	
+    {
+        muMixture = tranMulti_->viscosity();
+    }        
+    
     return muMixture;
 }
 
@@ -375,28 +375,28 @@ template<class ThermoType>
 Foam::scalar Foam::multiComponentMixture<ThermoType>::alphahPatchFaceMixture
 (
     const scalar p,
-	const scalar T,
-	const label patchi,
+    const scalar T,
+    const label patchi,
     const label facei
 )
 {
-	scalar alphahMixture(0.0);
+    scalar alphahMixture(0.0);
     doublereal Y[species_.size()];
-	forAll(species_, i)
-	{
-		Y[i] = Y_[i].boundaryField()[patchi][facei];
-	}	
-	gas_.setState_TPY(T, p, Y);
+    forAll(species_, i)
+    {
+        Y[i] = Y_[i].boundaryField()[patchi][facei];
+    }    
+    gas_.setState_TPY(T, p, Y);
 
     if (MmixtureAveraged_)
-	{
-		alphahMixture = tranMix_->thermalConductivity()/gas_.cp_mass();
-	}
+    {
+        alphahMixture = tranMix_->thermalConductivity()/gas_.cp_mass();
+    }
     if (MmultiComponent_)
-	{
-		alphahMixture = tranMulti_->thermalConductivity()/gas_.cp_mass();
-	}		
-	
+    {
+        alphahMixture = tranMulti_->thermalConductivity()/gas_.cp_mass();
+    }        
+    
     return alphahMixture;
 }
 

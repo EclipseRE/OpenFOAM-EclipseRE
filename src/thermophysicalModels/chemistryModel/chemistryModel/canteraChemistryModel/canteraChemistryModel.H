@@ -85,12 +85,12 @@ protected:
     // Protected data
         //- Reactions
         const PtrList<Reaction<ThermoType>>& reactions_;
-		
-		//- cantera object
-		mutable Cantera::IdealGasMix gas_;
-		
-		// Cantera::GasKinetics kin_;
-		
+        
+        //- cantera object
+        mutable Cantera::IdealGasMix gas_;
+        
+        // Cantera::GasKinetics kin_;
+        
         //- Reference to the field of specie mass fractions
         PtrList<volScalarField>& Y_;
 
@@ -140,10 +140,10 @@ public:
 
 
     // Member Functions
-	
+    
         //- The reactions
         inline const PtrList<Reaction<ThermoType>>& reactions() const;
-		
+        
         //- Thermodynamic data of the species
         inline const PtrList<ThermoType>& specieThermo() const;
 
@@ -192,7 +192,7 @@ public:
             scalar& cr,
             label& rRef
         ) const;
-		
+        
         //- Calculates the reaction rates
         virtual void calculate();
 
@@ -254,7 +254,7 @@ public:
                 scalarSquareMatrix& J
             ) const;
 
-			
+            
             virtual void solve
             (
                 scalarField &c,
