@@ -161,7 +161,7 @@ public:
 #define addChemistryReaderType(Reader, Thermo)                                 \
     defineTypeNameAndDebug(Reader, 0);                                         \
     chemistryReader<Thermo>::adddictionaryConstructorToTable<Reader>           \
-        add##Reader##Thermo##ConstructorToTable_
+        add##Reader##Thermo##ConstructorToTable_ 
 
 
 // for templated chemistry readers
