@@ -17,8 +17,8 @@ EXE_INC = \
     -I$(WM_CANTERA_DIR)/cantera/ext/fmt
 
 EXE_LIBS = \
+    -L$(CANTERA_LIB_PATH) \
+    -lcantera_shared \
     -lchemistryModel \
     -lfiniteVolume \
-    -lmeshTools \
-    -L$(CANTERA_LIB_PATH) \
-    -lcantera_shared
+    -lmeshTools 

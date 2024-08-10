@@ -33,6 +33,8 @@ EXE_INC = \
     -I$(WM_CANTERA_DIR)/cantera/ext/fmt
 
 EXE_LIBS = \
+    -L$(CANTERA_LIB_PATH) \
+    -lcantera_shared \
     -lfiniteVolume \
     -lfvOptions \
     -lmeshTools \
@@ -55,6 +57,4 @@ EXE_LIBS = \
     -lregionCoupling \
     -llagrangianIntermediate \
     -llagrangianTurbulence \
-    -lODE \
-    -L$(CANTERA_LIB_PATH) \
-    -lcantera_shared
+    -lODE 
