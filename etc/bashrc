@@ -216,6 +216,7 @@ unset cleaned foamClean foamOldDirs
 # Variables for Cantera. Requires installed Cantera version not higher than 2.5
 INSTALL_DIRECTORY="$WM_PROJECT_INST_DIR/canteraInstall"
 CANTERA_LIB_PATH="$INSTALL_DIRECTORY/lib"
+CANTERA_ENV_HOME="$HOME/anaconda3/envs/cantera-build"
 export CANTERA_LIB_PATH
 
 if [ -z $LD_LIBRARY_PATH ]; then
@@ -232,14 +233,16 @@ else
 fi
 export PKG_CONFIG_PATH
 
-PYTHON_CMD=$HOME/.conda/envs/cantera-build/bin/python
+PYTHON_CMD=$CANTERA_ENV_HOME/bin/python
 export PYTHON_CMD
 
 PATH=$INSTALL_DIRECTORY/bin:$PATH
 export PATH
 
-if [ "$HOME/.conda/envs/cantera-build/bin/python" != `which python` ]; then
-   alias ctpython="$HOME/.conda/envs/cantera-build/bin/python"
+CURRENT_PYTHON=$(which python)
+
+if [ "$PYTHON_CMD" != "$CURRENT_PYTHON" ]; then
+   alias ctpython="$PYTHON_CMD"
 fi
 
 if [ "default" = "y" ]; then
